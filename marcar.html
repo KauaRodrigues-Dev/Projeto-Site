@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marcar Consulta/Exame</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container-body">
+      <header>
+        <h1>Marcar Consulta/Exame</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Menu</a></li>
+            <li><a href="editar.html">Editar</a></li>
+            <li><a href="agendamento.html">Agendamentos</a></li>
+            <li><a href="historico.html">Histórico</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section class="form-section">
+          <form
+            class="formulario"
+            id="formAgendamento"
+            onsubmit="event.preventDefault(); agendarConsulta();"
+          >
+            <label>Código do Paciente:</label>
+            <input type="text" id="codigo" required />
+            <label>Tipo de Consulta:</label>
+            <select id="consulta" required>
+              <option >Clínico Geral</option>
+              <option >Ortopedia</option>
+              <option >Pediatria</option>
+              <option >Proctologia</option>
+              <option >Cardiologia</option>
+              <option >Ginecologia</option>
+              <option >Dermatologia</option>
+            </select>
+            <label>Data da Consulta:</label>
+            <input type="text" id="dataConsulta" data-mask="data" required />
+            <label>Hora da Consulta:</label>
+            <input type="time" id="horaConsulta" required />
+            <label>Exame (opcional):</label>
+            <input type="text" id="exame" placeholder="Nenhum" />
+            <label>Data do Exame:</label>
+            <input type="text" id="dataExame" data-mask="data" />
+            <label>Hora do Exame:</label>
+            <input type="time" id="horaExame" />
+            <button type="submit" class="btn">Agendar</button>
+          </form>
+          <div id="alertaAgendamento" class="alerta hidden"></div>
+        </section>
+      </main>
+      <footer class="footer">
+        <p>&copy; 2025 Sistema de Saúde — Desenvolvido por Guerreiros</p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

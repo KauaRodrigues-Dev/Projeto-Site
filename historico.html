@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Histórico - Sistema de Saúde</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container-body">
+      <header>
+        <h1>Histórico de Consultas e Exames</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Menu</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="editar.html">Editar</a></li>
+            <li><a href="agendamento.html">Agendamento</a></li>
+            <li><a href="marcar.html">Marcar Consulta</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <label>Informe o código do paciente:</label>
+        <input type="text" id="codigoHist" />
+        <button class="btn" onclick="verHistorico()">Ver Histórico</button>
+        <div id="listaHistorico"></div>
+      </main>
+      <footer>
+        <p>&copy; 2025 Sistema de Saúde — Desenvolvido por Guerreiros</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
