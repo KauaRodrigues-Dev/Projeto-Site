@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Caixa de Entrada - Clínica Médica</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caixa de Entrada - Clínica Médica</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body class="container-body">
+  <body class="container-body">
+    <div class="container-body">
+      <header class="header">
+        <div class="header-left">
+          <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="Clínica de Guerreiros" />
+          </a>
+        </div>
 
-    <header>
-        <h1>Clínica Médica</h1>
-        <nav>
+        <div class="header-center">
+          <h1>FeedBack</h1>
+          <nav>
             <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
-                <li><a href="agendamento.html">Agendamento</a></li>
-                <li><a href="historico.html">Histórico</a></li>
-                <li><a href="sobreNos.html">Sobre Nós</a></li>
-                <li><a href="contato.html">Contato</a></li>
+              <li><a href="index.html">Menu</a></li>
+              <li><a href="cadastro.html">Cadastro</a></li>
+              <li><a href="editar.html">Editar</a></li>
+              <li><a href="marcar.html">Marcar Consulta</a></li>
+              <li><a href="agendamento.html">Agendamentos</a></li>
+              <li><a href="historico.html">Histórico</a></li>
+              <li><a href="Contato.html">Contato</a></li>
+              <li><a href="sobreNos.html">Sobre Nós</a></li>
             </ul>
-        </nav>
-    </header>
+          </nav>
+        </div>
+      </header>
 
-    <main>
+      <main>
         <section class="form-section">
-            <h2>Caixa de Entrada</h2>
-            <p>Aqui estão todas as mensagens enviadas pelo formulário de contato.</p>
-            <div id="listaMensagens" class="mensagens-lista"></div>
-            <a href="contato.html" class="bottom-column">Voltar</a>
+          <h2>Caixa de Entrada</h2>
+          <p>
+            Aqui estão todas as mensagens enviadas pelo formulário de contato.
+          </p>
+          <div id="listaMensagens" class="mensagens-lista"></div>
+          <a href="contato.html" class="bottom-column">Voltar</a>
         </section>
-    </main>
+      </main>
 
-    <footer>
+      <footer>
         <p>&copy; 2025 Clínica Médica • Todos os direitos reservados</p>
-    </footer>
-
-  <script src="script.js"></script>
-
-</body>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
-

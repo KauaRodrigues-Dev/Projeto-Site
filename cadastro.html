@@ -7,18 +7,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container-body" >
-      <header>
-        <h1>Cadastro de Pacientes</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">Menu</a></li>
-            <li><a href="editar.html">Editar</a></li>
-            <li><a href="marcar.html">Marcar Consulta</a></li>
-            <li><a href="historico.html">Histórico</a></li>
-            <li><a href="agendamento.html">Agendamento</a></li>
-          </ul>
-        </nav>
+    <div class="container-body">
+      <header class="header">
+        <div class="header-left">
+          <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="Clínica de Guerreiros" />
+          </a>
+        </div>
+
+        <div class="header-center">
+          <h1>Cadastrar Paciente</h1>
+          <nav>
+            <ul>
+              <li><a href="index.html">Menu</a></li>
+              <li><a href="cadastro.html">Cadastro</a></li>
+              <li><a href="editar.html">Editar</a></li>
+              <li><a href="marcar.html">Marcar Consulta</a></li>
+              <li><a href="agendamento.html">Agendamentos</a></li>
+              <li><a href="historico.html">Histórico</a></li>
+              <li><a href="Contato.html">Contato</a></li>
+              <li><a href="sobreNos.html">Sobre Nós</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
 
       <main>
@@ -75,6 +86,14 @@
         <p>&copy; 2025 Sistema de Saúde — Desenvolvido por Guerreiros</p>
       </footer>
     </div>
+    <div id="popupCodigo" class="popup hidden">
+      <div class="popup-content">
+        <h2>Cadastro Concluído!</h2>
+        <p id="popupMensagem"></p>
+        <button onclick="fecharPopup()" class="btn">Confirmar</button>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

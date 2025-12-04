@@ -8,16 +8,28 @@
   </head>
   <body>
     <div class="container-body">
-      <header>
-        <h1>Marcar Consulta/Exame</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">Menu</a></li>
-            <li><a href="editar.html">Editar</a></li>
-            <li><a href="agendamento.html">Agendamentos</a></li>
-            <li><a href="historico.html">Histórico</a></li>
-          </ul>
-        </nav>
+      <header class="header">
+        <div class="header-left">
+          <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="Clínica de Guerreiros" />
+          </a>
+        </div>
+
+        <div class="header-center">
+          <h1>Marcar Consultas/Exames</h1>
+          <nav>
+            <ul>
+              <li><a href="index.html">Menu</a></li>
+              <li><a href="cadastro.html">Cadastro</a></li>
+              <li><a href="editar.html">Editar</a></li>
+              <li><a href="marcar.html">Marcar Consulta</a></li>
+              <li><a href="agendamento.html">Agendamentos</a></li>
+              <li><a href="historico.html">Histórico</a></li>
+              <li><a href="Contato.html">Contato</a></li>
+              <li><a href="sobreNos.html">Sobre Nós</a></li>
+            </ul>
+          </nav>
+        </div>
       </header>
       <main>
         <section class="form-section">
@@ -30,13 +42,13 @@
             <input type="text" id="codigo" required />
             <label>Tipo de Consulta:</label>
             <select id="consulta" required>
-              <option >Clínico Geral</option>
-              <option >Ortopedia</option>
-              <option >Pediatria</option>
-              <option >Proctologia</option>
-              <option >Cardiologia</option>
-              <option >Ginecologia</option>
-              <option >Dermatologia</option>
+              <option>Clínico Geral</option>
+              <option>Ortopedia</option>
+              <option>Pediatria</option>
+              <option>Proctologia</option>
+              <option>Cardiologia</option>
+              <option>Ginecologia</option>
+              <option>Dermatologia</option>
             </select>
             <label>Data da Consulta:</label>
             <input type="text" id="dataConsulta" data-mask="data" required />
@@ -48,7 +60,7 @@
             <input type="text" id="dataExame" data-mask="data" />
             <label>Hora do Exame:</label>
             <input type="time" id="horaExame" />
-            <button type="submit" class="btn">Agendar</button>
+            <button onclick="marcarConsulta()" class="btn">Agendar</button>
           </form>
           <div id="alertaAgendamento" class="alerta hidden"></div>
         </section>
@@ -57,6 +69,38 @@
         <p>&copy; 2025 Sistema de Saúde — Desenvolvido por Guerreiros</p>
       </footer>
     </div>
+    <div id="popupMarcar" class="popup hidden">
+      <div class="popup-content">
+        <h2>"Consulta marcada com sucesso!"</h2>
+        <p id="popupMsgMarcar"></p>
+      </div>
+    </div>
+    <div id="popupPACNA" class="popup hidden">
+      <div class="popup-content">
+        <h2>Paciente não encontrado no sistema</h2>
+        <p id="popupMsgPACNA"></p>
+      </div>
+    </div>
+    <div id="popupVFCS" class="popup hidden">
+      <div class="popup-content">
+        <h2>Data e Horário da consulta já está ocupado!</h2>
+        <p id="popupMsgVFCS"></p>
+      </div>
+    </div>
+
+    <div id="popupDATA" class="popup hidden">
+      <div class="popup-content">
+        <h2>Quem disse que voce pode voltar no passado? (arruma essa data)</h2>
+        <p id="popupMsgDATA"></p>
+      </div>
+    </div>
+    <div id="popupPassado" class="popup hidden">
+      <div class="popup-content">
+        <h2>Quem disse que voce pode voltar no passado? (arruma essa data)</h2>
+        <p id="popupMsgPassado"></p>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
