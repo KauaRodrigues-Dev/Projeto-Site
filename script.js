@@ -301,44 +301,145 @@ function listarAgendamentos() {
   lista.innerHTML = html;
 }
 
-// Cancelar via formulário (mantido)
-function cancelarAgendamento() {
-  const codigo = document.getElementById('codigoCancel')?.value?.trim();
-  const dataConsulta = document.getElementById('dataCancel')?.value?.trim();
-  const horaConsulta = document.getElementById('horaCancel')?.value;
-  let agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
-  const index = agendamentos.findIndex(a =>
-    a.codigo === codigo &&
-    a.dataConsulta === dataConsulta &&
-    a.horaConsulta === horaConsulta
-  );
-  if (index === -1) {
-    mostrarAlerta("alertaCancelamento", "Agendamento não encontrado!");
-    return;
-  }
-  agendamentos[index].cancelado = true;
-  localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
-  mostrarAlerta("alertaCancelamento", "Agendamento cancelado com sucesso!", "sucesso");
-  listarAgendamentos();
+/* ===== Funções de Máscaras ===== */
+function aplicarMascaras() {
+document.querySelectorAll('input[data-mask]').forEach(input => {
+input.addEventListener('input', e => {
+let value = e.target.value.replace(/\D/g, '');
+if (e.target.dataset.mask === 'cpf') {
+value = value.replace(/(\d{3})(\d)/, '$1.$2');
+value = value.replace(/(\d{3}).(\d{3})(\d)/, '$1.$2.$3');
+value = value.replace(/(\d{3}).(\d{3}).(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+} else if (e.target.dataset.mask === 'tel') {
+value = value.replace(/(\d{2})(\d)/, '($1) $2');
+value = value.replace(/((\d{2}) \d{5})(\d)/, '$1-$2');
+} else if (e.target.dataset.mask === 'data') {
+value = value.replace(/(\d{2})(\d)/, '$1/$2');
+value = value.replace(/(\d{2})\/(\d{2})(\d)/, '$1/$2/$3');
+}
+e.target.value = value;
+});
+});
 }
 
-// Cancelar diretamente pelo card
-function cancelarAgendamentoDirect(codigo, dataConsulta, horaConsulta) {
-  let agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
-  const index = agendamentos.findIndex(a =>
-    a.codigo === codigo &&
-    a.dataConsulta === dataConsulta &&
-    a.horaConsulta === horaConsulta
-  );
-  if (index === -1) {
-    mostrarPopupGlobal('Agendamento não encontrado!');
-    return;
-  }
-  agendamentos[index].cancelado = true;
-  localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
-  mostrarPopupGlobal('Agendamento cancelado com sucesso!');
-  listarAgendamentos();
+/* ===== Validação de CPF ===== */
+function validarCPF(cpf) {
+cpf = (cpf || '').replace(/[.-]/g, '');
+if (cpf.length !== 11 || /^([0-9])\1{10}$/.test(cpf)) return false;
+let sum = 0;
+for (let i = 0; i < 9; i++) sum += parseInt(cpf.charAt(i)) * (10 - i);
+let rev = 11 - (sum % 11);
+if (rev === 10 || rev === 11) rev = 0;
+if (rev !== parseInt(cpf.charAt(9))) return false;
+sum = 0;
+for (let i = 0; i < 10; i++) sum += parseInt(cpf.charAt(i)) * (11 - i);
+rev = 11 - (sum % 11);
+if (rev === 10 || rev === 11) rev = 0;
+return rev === parseInt(cpf.charAt(10));
 }
+
+/* ===== Função para parsear data ===== */
+function parseDateDMY(str) {
+if (!str || typeof str !== 'string') return null;
+const parts = str.split('/');
+if (parts.length !== 3) return null;
+const d = parseInt(parts[0], 10);
+const m = parseInt(parts[1], 10) - 1;
+const y = parseInt(parts[2], 10);
+const dt = new Date(y, m, d);
+if (dt && dt.getFullYear() === y && dt.getMonth() === m && dt.getDate() === d) return dt;
+return null;
+}
+
+/* ===== Popups Globais ===== */
+function mostrarPopupGlobal(texto, tempo = 3000) {
+const existing = document.querySelector('.popup-msg.temp');
+if (existing) existing.remove();
+const popup = document.createElement('div');
+popup.className = 'popup-msg temp';
+popup.textContent = texto;
+document.body.appendChild(popup);
+window.getComputedStyle(popup).opacity;
+setTimeout(() => { popup.style.opacity = '0'; }, tempo - 500);
+setTimeout(() => { popup.remove(); }, tempo);
+}
+
+/* ===== Função para listar agendamentos (cards com botões de cancelamento) ===== */
+function listarAgendamentos() {
+const lista = document.getElementById('listaAgendamentos');
+if (!lista) return;
+const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
+
+const ativos = agendamentos.filter(a => !a.cancelado);
+if (ativos.length === 0) {
+lista.innerHTML = '<p>Nenhum agendamento.</p>';
+return;
+}
+
+let html = ativos.map(a => {
+const exameTexto = (!a.exame || a.exame === 'Nenhum' || a.exame === 'N/A') ? 'N/A' : a.exame;
+const dataEx = a.dataExame && a.dataExame !== '-' ? `${a.dataExame} às ${a.horaExame || '-'}` : '';
+
+
+return `
+  <div class="card-agendamento">
+    <div class="card-row">
+      <strong>Paciente:</strong> ${a.codigo}
+    </div>
+    <div><strong>Consulta:</strong> ${a.consulta} — ${a.dataConsulta} às ${a.horaConsulta}
+      ${a.dataConsulta ? `<button class="btn small" style="margin-left:10px;"
+        onclick="cancelarAgendamentoDirect('${a.codigo}','${a.dataConsulta}','${a.horaConsulta}')">Cancelar Consulta</button>` : ''}
+    </div>
+    <div><strong>Exame:</strong> ${exameTexto} ${dataEx}
+      ${a.dataExame && a.dataExame !== '-' ? `<button class="btn small" style="margin-left:10px;"
+        onclick="cancelarAgendamentoDirect('${a.codigo}','${a.dataConsulta}','${a.horaConsulta}','${a.dataExame}','${a.horaExame}')">Cancelar Exame</button>` : ''}
+    </div>
+  </div>
+`;
+
+
+}).join('');
+
+lista.innerHTML = html;
+}
+
+/* ===== Cancelamento direto (consulta e exame) ===== */
+function cancelarAgendamentoDirect(codigo, dataConsulta, horaConsulta, dataExame = null, horaExame = null) {
+let agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
+
+const index = agendamentos.findIndex(a =>
+a.codigo === codigo &&
+(
+(a.dataConsulta === dataConsulta && a.horaConsulta === horaConsulta) ||
+(dataExame && a.dataExame === dataExame && a.horaExame === horaExame)
+)
+);
+
+if (index === -1) {
+mostrarPopupGlobal('Agendamento não encontrado!');
+return;
+}
+
+agendamentos[index].cancelado = true;
+localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+mostrarPopupGlobal('Agendamento cancelado com sucesso!');
+listarAgendamentos();
+}
+
+/* ===== Inicialização ===== */
+document.addEventListener('DOMContentLoaded', () => {
+aplicarMascaras();
+listarAgendamentos();
+
+const formAgendamento = document.getElementById('formAgendamento');
+if (formAgendamento) {
+formAgendamento.addEventListener('submit', function(e){
+e.preventDefault();
+agendarConsulta();
+});
+}
+});
+
 
 // Função para salvar mensagens de contato (mantida)
 function salvarMensagemContato() {

@@ -416,3 +416,33 @@ img {
     stroke-dashoffset: 0;
   }
 }
+
+.header-center nav ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  color: #eaf2fa;
+}
+
+.header-center nav ul li a:hover {
+  color: #003366;
+}
+
+.article nav ul li a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  color: #eaf2fa;
+}
+
+.article nav ul li a:hover {
+  color: #003366;
+}
+
+li :hover {
+  color: #003366;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 5px;
+  padding-inline: 5px;
+}
