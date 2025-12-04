@@ -21,7 +21,26 @@
       </header>
 
       <main>
+        <h3>Agendamentos Marcados</h3>
         <div id="listaAgendamentos"></div>
+        <br><br><br>
+        <!-- Botão para remover agendamento -->
+        <section class="form-section">
+          <h3>Cancelar Agendamento</h3>
+          <label>Código do Paciente:</label><br>
+          <input type="text" id="codigoCancel" />
+          <br>
+          <label>Data da Consulta:</label><br>
+          <input type="text" id="dataCancel" data-mask="data" />
+          <br>
+          <label>Hora da Consulta:</label><br>
+          <input type="time" id="horaCancel" />
+          <br>
+          <button class="btn" onclick="cancelarAgendamento()">Cancelar Agendamento</button>
+
+          <div id="alertaCancelamento" class="alerta hidden"></div>
+        </section>
+
       </main>
       <footer class="footer">
         <p>&copy; 2025 Sistema de Saúde — Desenvolvido por Guerreiros</p>

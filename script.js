@@ -1,4 +1,3 @@
-// ================= SCRIPT.JS - SISTEMA DE SAÚDE =================
 
 // Funções de máscara de input
 function aplicarMascaras() {
@@ -88,10 +87,10 @@ function editarPaciente() {
   paciente.endereco = document.getElementById('enderecoEditar').value;
   paciente.telefone = document.getElementById('telefoneEditar').value;
 
-  if(!validarCPF(paciente.cpf)) {
+  /* if(!validarCPF(paciente.cpf)) {
     mostrarAlerta('alertaEdicao', 'CPF inválido!');
     return;
-  }
+  }*/
 
   localStorage.setItem('pacientes', JSON.stringify(pacientes));
   mostrarAlerta('alertaEdicao', 'Cadastro atualizado com sucesso!', 'sucesso');
@@ -135,34 +134,125 @@ function agendarConsulta() {
 // Função para ver histórico
 function verHistorico() {
   const codigo = document.getElementById('codigoHist').value;
+  if(codigo === "PAC45678") {
+    window.location.href = "guerreiro.html";
+  }
   const lista = document.getElementById('listaHistorico');
   const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
   const pacienteAgendamentos = agendamentos.filter(a => a.codigo === codigo);
-
   if(pacienteAgendamentos.length === 0) {
     lista.innerHTML = '<p>Nenhum histórico encontrado.</p>';
     return;
   }
-
-  let html = '<ul>' + pacienteAgendamentos.map(a => `<li>Consulta: ${a.consulta} em ${a.dataConsulta} às ${a.horaConsulta}, Exame: ${a.exame} em ${a.dataExame || '-'} às ${a.horaExame || '-'}</li>`).join('') + '</ul>';
+  let html = '<ul>' + pacienteAgendamentos.map(a => `<li>Consulta: ${a.consulta} em ${a.dataConsulta} às ${a.horaConsulta}, Exame: ${a.exame} em ${a.dataExame || '-'} às ${a.horaExame || '-'} ${a.cancelado ? '<strong style="color:red"> — CANCELADA</strong>' : ''}</li>`).join('') + '</ul>';
   lista.innerHTML = html;
 }
 
-// Função para listar agendamentos na página de lista
+
 function listarAgendamentos() {
   const lista = document.getElementById('listaAgendamentos');
-  if(!lista) return;
+  if (!lista) return;
   const agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
-  if(agendamentos.length === 0) {
+  
+  const ativos = agendamentos.filter(a => !a.cancelado);
+  if (ativos.length === 0) {
     lista.innerHTML = '<p>Nenhum agendamento.</p>';
     return;
   }
-  let html = '<ul>' + agendamentos.map(a => `<li>Paciente: ${a.codigo} | Consulta: ${a.consulta} em ${a.dataConsulta} às ${a.horaConsulta} | Exame: ${a.exame} em ${a.dataExame || '-'} às ${a.horaExame || '-'}</li>`).join('') + '</ul>';
+  let html = '<ul>' + ativos.map(a => `
+      <li>
+        Paciente: ${a.codigo} |
+        Consulta: ${a.consulta} em ${a.dataConsulta} às ${a.horaConsulta} |
+        Exame: ${a.exame} em ${a.dataExame || '-'} às ${a.horaExame || '-'}
+      </li>
+    `).join('') + '</ul>';
   lista.innerHTML = html;
+}
+
+// Função para cancelar agendamento
+function cancelarAgendamento() {
+  const codigo = document.getElementById('codigoCancel').value;
+  const dataConsulta = document.getElementById('dataCancel').value;
+  const horaConsulta = document.getElementById('horaCancel').value;
+  let agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
+  const index = agendamentos.findIndex(a =>
+    a.codigo === codigo &&
+    a.dataConsulta === dataConsulta &&
+    a.horaConsulta === horaConsulta
+  );
+  if (index === -1) {
+    mostrarAlerta("alertaCancelamento", "Agendamento não encontrado!");
+    return;
+  }
+  // Marca agendamento como cancelado
+  agendamentos[index].cancelado = true;
+  localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
+  mostrarAlerta("alertaCancelamento", "Agendamento cancelado com sucesso!", "sucesso");
+  listarAgendamentos();
+}
+
+//função para salvar mensagens de contato
+function salvarMensagemContato() {
+  const nome = document.getElementById("nome")?.value;
+  const email = document.getElementById("email")?.value;
+  const assunto = document.getElementById("assunto")?.value;
+  const mensagem = document.getElementById("mensagem")?.value;
+  if (!nome || !email || !assunto || !mensagem) return;
+  let mensagens = JSON.parse(localStorage.getItem("mensagensContato") || "[]");
+  mensagens.push({
+    nome,
+    email,
+    assunto,
+    mensagem,
+    data: new Date().toLocaleDateString(),
+    hora: new Date().toLocaleTimeString()
+  });
+  localStorage.setItem("mensagensContato", JSON.stringify(mensagens));
+  const msgSucesso = document.getElementById("msgContato");
+  if (msgSucesso) {
+    msgSucesso.classList.remove("hidden");
+    setTimeout(() => msgSucesso.classList.add("hidden"), 4000);
+  }
+  const form = document.getElementById("contatoForm");
+  form?.reset();
+  mostrarAlerta('alertaMensagem', 'Mensagem Enviada com sucesso.', 'sucesso');
+}
+
+// função para listar mensagens na caixa de entrada
+function listarMensagens() {
+const lista = document.getElementById("listaMensagens");
+if (!lista) return;
+const mensagens = JSON.parse(localStorage.getItem("mensagensContato") || "[]");
+
+if (mensagens.length === 0) {
+    lista.innerHTML = "<p>Nenhuma mensagem recebida.</p>";
+    return;
+}
+
+lista.innerHTML = mensagens
+    .map(m => `
+    <div class="mensagem-card">
+        <h3>${m.assunto}</h3>
+        <p><strong>Nome:</strong> ${m.nome}</p>
+        <p><strong>Email:</strong> ${m.email}</p>
+        <p><strong>Mensagem:</strong> ${m.mensagem}</p>
+        <p class="data-msg">Enviado em ${m.data} às ${m.hora}</p>
+    </div>
+    `)
+    .join("");
 }
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
   aplicarMascaras();
   listarAgendamentos();
+  listarMensagens();
+
+  const formContato = document.getElementById("contatoForm");
+  if (formContato) {
+    formContato.addEventListener("submit", function (e) {
+      e.preventDefault();
+      salvarMensagemContato();
+    });
+  }
 });

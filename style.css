@@ -32,7 +32,7 @@ body {
 }
 
 header {
-  background-color: var(--blue-700);
+  background: linear-gradient(var(--blue-900), #0054a8e6);
   color: #fff;
   padding: 18px 12px;
   text-align: center;
@@ -191,6 +191,13 @@ footer {
   margin-top: auto;
 }
 
+img {
+  border-radius: 8px;
+  height: 120px;
+  width: 237px;
+  background-image: linear-gradient(180deg, #fff);
+  background-size: cover;
+}
 @media (max-width: 600px) {
   nav ul {
     flex-direction: column;
@@ -200,3 +207,12 @@ footer {
     padding: 18px;
   }
 }
+.mensagem-card {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+

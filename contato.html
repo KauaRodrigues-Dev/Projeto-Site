@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato - Clínica Médica</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Clínica Médica</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Menu</Menu></a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+                <li><a href="agendamento.html">Agendamento</a></li>
+                <li><a href="historico.html">Histórico</a></li>
+                <li><a href="sobreNos.html">Sobre nós</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Entre em Contato</h2>
+            <p>Use o formulário abaixo para enviar dúvidas, sugestões ou comentários.</p>
+
+            <form class="formulario" id="contatoForm">
+                <input type="text" id="nome" placeholder="Seu nome" required>
+                <input type="email" id="email" placeholder="Seu e-mail" required>
+                <input type="text" id="assunto" placeholder="Assunto" required>
+                <textarea id="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
+
+                <button type="submit">Enviar mensagem</button>
+            </form>
+            <div id="alertaMensagem" class="alerta hidden"></div>
+            <br><br><br>
+            <a href="caixaEntrada.html" class="bottom-column">Caixa de Entrada</a>
+
+            <div id="msgContato" class="message hidden">
+                Mensagem enviada com sucesso! Entraremos em contato em breve.
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Clínica Médica • Todos os direitos reservados</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
