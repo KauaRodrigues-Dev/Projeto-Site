@@ -22,8 +22,14 @@ Este projeto consiste em um site estático com múltiplas páginas HTML, CSS e J
 ## 🚀 Como rodar / visualizar o projeto  
 Basta clonar o repositório e abrir o arquivo `index.html` em um navegador moderno.  
 
+```bash
+https://github.com/KauaRodrigues-Dev/Projeto-Site.git
+```
+# depois abra index.html no seu navegador
+
 Acessando via link, rodando apartir do git pages: 
 
 ```bash
-git clone https://kauarodrigues-dev.github.io/Projeto-Site
-# depois abra index.html no seu navegador
+https://kauarodrigues-dev.github.io/Projeto-Site
+```
+
