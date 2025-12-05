@@ -16,12 +16,48 @@ function aplicarMascaras() {
       } else if (e.target.dataset.mask === "data") {
         value = value.replace(/(\d{2})(\d)/, "$1/$2");
         value = value.replace(/(\d{2})\/(\d{2})(\d)/, "$1/$2/$3");
+      } else if (e.target.dataset.mask === "cep") {
+        value = value.replace(/(\d{5})(\d)/, "$1-$2");
       }
       e.target.value = value;
     });
   });
 }
 
+// Função para buscar endereço pelo CEP usando ViaCEP
+function buscarEndereco() {
+  const cep = document.getElementById("cep")?.value?.replace(/\D/g, "");
+
+  if (!cep || cep.length !== 8) {
+    return;
+  }
+
+  // Limpa os campos antes de buscar
+  const endereco = document.getElementById("endereco");
+  endereco.value = "Buscando...";
+
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.erro) {
+        mostrarPopupGlobal("CEP não encontrado!");
+        endereco.value = "";
+        return;
+      }
+
+      // Preenche os campos com logradouro e complemento
+      const enderecoCompleto =
+        data.logradouro + (data.complemento ? ` - ${data.complemento}` : "");
+      endereco.value = enderecoCompleto;
+
+      mostrarPopupGlobal("Endereço encontrado!");
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar CEP:", error);
+      mostrarPopupGlobal("Erro ao buscar CEP. Tente novamente.");
+      endereco.value = "";
+    });
+}
 // Função de validação de CPF (mantida)
 function validarCPF(cpf) {
   cpf = (cpf || "").replace(/[\.\-]/g, "");
@@ -645,28 +681,28 @@ function buscarPaciente() {
 }
 
 function cancelarExame(codigo, dataExame, horaExame) {
-  let agendamentos = JSON.parse(localStorage.getItem('agendamentos') || '[]');
+  let agendamentos = JSON.parse(localStorage.getItem("agendamentos") || "[]");
 
-  const index = agendamentos.findIndex(a =>
-    a.codigo === codigo &&
-    a.dataExame === dataExame &&
-    a.horaExame === horaExame &&
-    !a.cancelado
+  const index = agendamentos.findIndex(
+    (a) =>
+      a.codigo === codigo &&
+      a.dataExame === dataExame &&
+      a.horaExame === horaExame &&
+      !a.cancelado
   );
 
   if (index === -1) {
-    mostrarPopupGlobal('Exame não encontrado!');
+    mostrarPopupGlobal("Exame não encontrado!");
     return;
   }
 
   // Marca somente o EXAME como cancelado (não a consulta)
-  agendamentos[index].exame = 'N/A';
-  agendamentos[index].dataExame = '-';
-  agendamentos[index].horaExame = '-';
+  agendamentos[index].exame = "N/A";
+  agendamentos[index].dataExame = "-";
+  agendamentos[index].horaExame = "-";
 
-  localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+  localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
 
-  mostrarPopupGlobal('Exame cancelado com sucesso!');
+  mostrarPopupGlobal("Exame cancelado com sucesso!");
   listarAgendamentos();
 }
-

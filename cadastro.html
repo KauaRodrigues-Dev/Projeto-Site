@@ -66,6 +66,17 @@
               required
             />
 
+            <label>CEP:</label>
+            <input
+              type="text"
+              id="cep"
+              data-mask="cep"
+              placeholder="00000-000"
+              maxlength="9"
+              onblur="buscarEndereco()"
+              required
+            />
+
             <label>Endereço:</label>
             <input type="text" id="endereco" required />
 
