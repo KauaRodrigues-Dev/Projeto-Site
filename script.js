@@ -24,40 +24,6 @@ function aplicarMascaras() {
   });
 }
 
-// Função para buscar endereço pelo CEP usando ViaCEP
-function buscarEndereco() {
-  const cep = document.getElementById("cep")?.value?.replace(/\D/g, "");
-
-  if (!cep || cep.length !== 8) {
-    return;
-  }
-
-  // Limpa os campos antes de buscar
-  const endereco = document.getElementById("endereco");
-  endereco.value = "Buscando...";
-
-  fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.erro) {
-        mostrarPopupGlobal("CEP não encontrado!");
-        endereco.value = "";
-        return;
-      }
-
-      // Preenche os campos com logradouro e complemento
-      const enderecoCompleto =
-        data.logradouro + (data.complemento ? ` - ${data.complemento}` : "");
-      endereco.value = enderecoCompleto;
-
-      mostrarPopupGlobal("Endereço encontrado!");
-    })
-    .catch((error) => {
-      console.error("Erro ao buscar CEP:", error);
-      mostrarPopupGlobal("Erro ao buscar CEP. Tente novamente.");
-      endereco.value = "";
-    });
-}
 // Função de validação de CPF (mantida)
 function validarCPF(cpf) {
   cpf = (cpf || "").replace(/[\.\-]/g, "");
@@ -214,7 +180,7 @@ function editarPaciente() {
   let pacientes = JSON.parse(localStorage.getItem("pacientes") || "[]");
   const paciente = pacientes.find((p) => p.codigo === codigo);
   if (!paciente) {
-    mostrarPopupGlobal("Paciente não encontrado!");
+    mostrarPopupPACNA("Paciente não encontrado!");
     return;
   }
 
@@ -661,7 +627,7 @@ function buscarPaciente() {
   const paciente = pacientes.find((p) => p.codigo === codigo);
 
   if (!paciente) {
-    mostrarAlerta("alertaEdicao", "Paciente não encontrado!");
+    mostrarPopupPACNA("alertaEdicao", "Paciente não encontrado!");
     return;
   }
 
