@@ -25,6 +25,5 @@ Basta clonar o repositório e abrir o arquivo `index.html` em um navegador moder
 Acessando via link, rodando apartir do git pages: 
 
 ```bash
-git clone https://github.com/KauaRodrigues-Dev/Projeto-Site.git
-cd Projeto-Site
+git clone https://kauarodrigues-dev.github.io/Projeto-Site
 # depois abra index.html no seu navegador
