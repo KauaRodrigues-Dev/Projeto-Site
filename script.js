@@ -214,7 +214,7 @@ function editarPaciente() {
   let pacientes = JSON.parse(localStorage.getItem("pacientes") || "[]");
   const paciente = pacientes.find((p) => p.codigo === codigo);
   if (!paciente) {
-    mostrarPopupPACNA("Paciente não encontrado!");
+    mostrarPopupGlobal("Paciente não encontrado!");
     return;
   }
 
