@@ -627,7 +627,7 @@ function buscarPaciente() {
   const paciente = pacientes.find((p) => p.codigo === codigo);
 
   if (!paciente) {
-    mostrarPopupPACNA("alertaEdicao", "Paciente não encontrado!");
+    mostrarPopupPACNA("Paciente não encontrado!");
     return;
   }
 
