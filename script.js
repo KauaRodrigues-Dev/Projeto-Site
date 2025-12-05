@@ -58,6 +58,7 @@ function buscarEndereco() {
     });
 }
 // Função de validação de CPF (mantida)
+
 function validarCPF(cpf) {
   cpf = (cpf || "").replace(/[\.\-]/g, "");
   if (cpf.length !== 11 || /^([0-9])\1{10}$/.test(cpf)) return false;
@@ -528,6 +529,8 @@ document.addEventListener("DOMContentLoaded", () => {
   aplicarMascaras();
   listarAgendamentos();
   listarMensagens();
+  listarCadastros();
+  
 
   const formContato = document.getElementById("contatoForm");
   if (formContato) {
@@ -704,4 +707,29 @@ function cancelarExame(codigo, dataExame, horaExame) {
 
   mostrarPopupGlobal("Exame cancelado com sucesso!");
   listarAgendamentos();
+}
+
+//função para carregar a lista de cadastro de pacientes
+function listarCadastros() {
+  const area = document.getElementById("listaCadastros");
+  if (!area) return;
+
+  const cadastros = JSON.parse(localStorage.getItem("pacientes") || "[]");
+
+  if (cadastros.length === 0) {
+    area.innerHTML = "<p>Nenhum cadastro encontrado.</p>";
+    return;
+  }
+
+  area.innerHTML = cadastros.map(c => `
+      <div class="mensagem-card">
+          <p><strong>Código:</strong> ${c.codigo}</p>
+          <p><strong>Nome:</strong> ${c.nome}</p>
+          <p><strong>Idade:</strong> ${c.idade}</p>
+          <p><strong>CPF:</strong> ${c.cpf}</p>
+          <p><strong>Telefone:</strong> ${c.telefone}</p>
+          <p><strong>Data de Nascimento:</strong> ${c.nascimento}</p>
+          <p><strong>Endereço:</strong> ${c.endereco}</p>
+      </div>
+  `).join("");
 }
