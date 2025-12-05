@@ -41,14 +41,17 @@
             <label>Código do Paciente:</label>
             <input type="text" id="codigo" required />
             <label>Tipo de Consulta:</label>
-            <select id="consulta" required>
-              <option>Clínico Geral</option>
-              <option>Ortopedia</option>
-              <option>Pediatria</option>
-              <option>Proctologia</option>
-              <option>Cardiologia</option>
-              <option>Ginecologia</option>
-              <option>Dermatologia</option>
+            <select id="consulta" name="exame" autocomplete="off" required>
+              <option value="" disabled selected>
+                Selecione qual especialidade...
+              </option>
+              <option value="ClínicoGeral">Clínico Geral</option>
+              <option value="Ortopedia">Ortopedia</option>
+              <option value="Pediatria">Pediatria</option>
+              <option value="Proctologia">Proctologia</option>
+              <option value="Cardiologia">Cardiologia</option>
+              <option value="Ginecologia">Ginecologia</option>
+              <option value="Dermatologia">Dermatologia</option>
             </select>
             <label>Data da Consulta:</label>
             <input
@@ -61,7 +64,18 @@
             <label>Hora da Consulta:</label>
             <input type="time" id="horaConsulta" required />
             <label>Exame (opcional):</label>
-            <input type="text" id="exame" placeholder="Nenhum" />
+            <select id="exame" name="exame" autocomplete="off" required>
+              <option value="" disabled selected>Selecione um Exame...</option>
+              <option value="Hemograma">Hemograma</option>
+              <option value="Glicemia">Glicemia</option>
+              <option value="FunçãoRenal">Função Renal</option>
+              <option value="UrinaeFezes">Urina e Fezes</option>
+              <option value="PSA">PSA</option>
+              <option value="Colesterol">Colesterol</option>
+              <option value="Mamografia">Mamografia</option>
+              <option value="Papanicolau">Papanicolau</option>
+              <option value="Transvaginal">Transvaginal</option>
+            </select>
             <label>Data do Exame:</label>
             <input type="text" id="dataExame" data-mask="data" maxlength="10" />
             <label>Hora do Exame:</label>

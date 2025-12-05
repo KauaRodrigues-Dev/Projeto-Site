@@ -61,6 +61,7 @@ nav a {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   width: 100%;
   margin: 0 auto;
+  margin-top: 161px;
 }
 .menu-cards {
   display: grid;
@@ -72,7 +73,13 @@ nav a {
   border-radius: 10px;
   border: 1px solid #000;
   text-align: center;
+  background: linear-gradient(180deg, var(--blue-200), #fff);
+  transition: all 0.2s;
 }
+.card:hover {
+  scale: 1.05;
+}
+
 .img-placeholder {
   height: 120px;
   border-radius: 8px;
@@ -189,6 +196,13 @@ footer {
   color: #fff;
   text-decoration: none;
   margin-top: auto;
+  border: 1px solid var(--blue-700);
+  transition: all 0.1s;
+}
+
+.bottom-column:hover {
+  background: transparent;
+  color: var(--blue-700);
 }
 
 img {
@@ -270,10 +284,12 @@ img {
   align-items: end;
   gap: 8px;
   padding: 12px 22px;
-  background: linear-gradient(var(--blue-900), #0054a8e6);
+  background: hsl(210deg 100% 20% / 80%);
   color: white;
+  backdrop-filter: blur(6px);
+  position: fixed;
+  width: 100%;
 }
-
 .header-left {
   display: flex;
   align-items: center;
@@ -311,7 +327,7 @@ img {
 
 /* Logo */
 .logo img {
-  width: 195px;
+  width: 199px;
   height: auto;
   object-fit: contain;
   display: block;
@@ -427,14 +443,14 @@ img {
   color: #003366;
 }
 
-.article nav ul li a {
+.lele nav ul li a {
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
   color: #eaf2fa;
 }
 
-.article nav ul li a:hover {
+.article nav ul li a :hover {
   color: #003366;
 }
 
