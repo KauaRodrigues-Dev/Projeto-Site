@@ -195,7 +195,6 @@ img {
   border-radius: 8px;
   height: 120px;
   width: 237px;
-  background-image: linear-gradient(180deg, #fff);
   background-size: cover;
 }
 
@@ -312,7 +311,7 @@ img {
 
 /* Logo */
 .logo img {
-  width: 140px;
+  width: 195px;
   height: auto;
   object-fit: contain;
   display: block;
