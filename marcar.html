@@ -31,7 +31,7 @@
           </nav>
         </div>
       </header>
-      <main>
+      <main id="main">
         <section class="form-section">
           <form
             class="formulario"
@@ -51,16 +51,22 @@
               <option>Dermatologia</option>
             </select>
             <label>Data da Consulta:</label>
-            <input type="text" id="dataConsulta" data-mask="data" required />
+            <input
+              type="text"
+              id="dataConsulta"
+              data-mask="data"
+              maxlength="10"
+              required
+            />
             <label>Hora da Consulta:</label>
             <input type="time" id="horaConsulta" required />
             <label>Exame (opcional):</label>
             <input type="text" id="exame" placeholder="Nenhum" />
             <label>Data do Exame:</label>
-            <input type="text" id="dataExame" data-mask="data" />
+            <input type="text" id="dataExame" data-mask="data" maxlength="10" />
             <label>Hora do Exame:</label>
             <input type="time" id="horaExame" />
-            <button onclick="marcarConsulta()" class="btn">Agendar</button>
+            <button onclick="agendarConsulta()" class="btn">Agendar</button>
           </form>
           <div id="alertaAgendamento" class="alerta hidden"></div>
         </section>

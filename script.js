@@ -52,6 +52,7 @@ function parseDateDMY(str) {
 
 // Popup global (cria elemento temporário no DOM)
 function mostrarPopupGlobal(texto, tempo = 3000) {
+  
   // se já existir um popup global, remove antes
   const existing = document.querySelector('.popup-msg.temp');
   if (existing) existing.remove();
@@ -227,6 +228,7 @@ function agendarConsulta() {
   }
 
   if (exame !== 'N/A' && dataExame) {
+
     const dataEx = parseDateDMY(dataExame);
     if (!dataEx) {
       mostrarPopupDATA('Data do exame inválida (use DD/MM/AAAA).');
@@ -387,11 +389,11 @@ return `
       <strong>Paciente:</strong> ${a.codigo}
     </div>
     <div><strong>Consulta:</strong> ${a.consulta} — ${a.dataConsulta} às ${a.horaConsulta}
-      ${a.dataConsulta ? `<button class="btn small" style="margin-left:10px;"
+      ${a.dataConsulta ? `<button class="btn small" style="justify-content:right;"
         onclick="cancelarAgendamentoDirect('${a.codigo}','${a.dataConsulta}','${a.horaConsulta}')">Cancelar Consulta</button>` : ''}
     </div>
     <div><strong>Exame:</strong> ${exameTexto} ${dataEx}
-      ${a.dataExame && a.dataExame !== '-' ? `<button class="btn small" style="margin-left:10px;"
+      ${a.dataExame && a.dataExame !== '-' ? `<button class="btn small" style="margin-left:70px;"
         onclick="cancelarAgendamentoDirect('${a.codigo}','${a.dataConsulta}','${a.horaConsulta}','${a.dataExame}','${a.horaExame}')">Cancelar Exame</button>` : ''}
     </div>
   </div>

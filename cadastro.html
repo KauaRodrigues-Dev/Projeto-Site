@@ -32,7 +32,7 @@
         </div>
       </header>
 
-      <main>
+      <main id="main">
         <section class="form-section">
           <h2>Novo Paciente</h2>
           <form
@@ -52,6 +52,7 @@
               id="cpf"
               data-mask="cpf"
               placeholder="000.000.000-00"
+              maxlength="14"
               required
             />
 
@@ -61,6 +62,7 @@
               id="nascimento"
               data-mask="data"
               placeholder="dd/mm/aa"
+              maxlength="10"
               required
             />
 
@@ -73,6 +75,7 @@
               id="telefone"
               data-mask="tel"
               placeholder="(00)00000-0000"
+              maxlength="14"
               required
             />
 

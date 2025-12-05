@@ -32,7 +32,7 @@
         </div>
       </header>
 
-      <main>
+      <main id="main">
         <section class="form-section">
           <form
             class="formulario"
@@ -52,16 +52,26 @@
             <input type="number" id="idadeEditar" />
 
             <label>CPF:</label>
-            <input type="text" id="cpfEditar" data-mask="cpf" />
+            <input type="text" id="cpfEditar" data-mask="cpf" maxlength="14" />
 
             <label>Data de Nascimento:</label>
-            <input type="text" id="nascimentoEditar" data-mask="data" />
+            <input
+              type="text"
+              id="nascimentoEditar"
+              data-mask="data"
+              maxlength="10"
+            />
 
             <label>Endereço:</label>
             <input type="text" id="enderecoEditar" />
 
             <label>Telefone:</label>
-            <input type="text" id="telefoneEditar" data-mask="tel" />
+            <input
+              type="text"
+              id="telefoneEditar"
+              data-mask="tel"
+              maxlength="14"
+            />
 
             <button type="submit" class="btn">Salvar Alterações</button>
           </form>
